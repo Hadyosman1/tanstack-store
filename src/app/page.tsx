@@ -1,9 +1,9 @@
 import Banner from "@/components/home/Banner";
-import Products from "../components/products/ProductList";
 import FilterSidebar from "@/components/home/FilterSidebar";
 import Categories from "@/components/categories/Categories";
+import Products from "@/components/home/Products";
 
-export default function ProductsPagination() {
+export default function HomePage() {
   return (
     <div className="space-y-8 py-8">
       <div className="container space-y-7">
@@ -11,12 +11,9 @@ export default function ProductsPagination() {
         <Categories />
       </div>
 
-      <main className="mx-auto flex max-w-[1460px] gap-4 px-4 max-lg:flex-col">
-        <FilterSidebar className="bg-secondary sticky top-10 z-10 w-full shrink-0 self-start rounded p-4 shadow lg:w-80" />
-        <div>
-          <h1 className="text-2xl font-bold">Products</h1>
-          <Products />
-        </div>
+      <main className="mx-auto flex max-w-[1460px] gap-4 px-4 max-md:flex-col">
+        <FilterSidebar className="bg-card sticky top-[calc(var(--header-height)+(var(--spacing)_*_4))] z-10 w-full shrink-0 self-start p-4 shadow md:w-72" />
+        <Products />
       </main>
     </div>
   );

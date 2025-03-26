@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-p-(--header-height) scroll-smooth">
       <body className={`antialiased`} suppressHydrationWarning>
         <ReactQueryProvider>
           <Header />

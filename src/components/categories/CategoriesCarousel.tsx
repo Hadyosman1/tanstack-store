@@ -19,7 +19,7 @@ export default function CategoriesCarousel({ categories }: CategoriesProps) {
   return (
     <Carousel
       opts={{
-        align: "start",
+        align: "center",
       }}
       className="w-full"
     >
@@ -40,7 +40,7 @@ export default function CategoriesCarousel({ categories }: CategoriesProps) {
                   className="aspect-square select-none"
                 />
                 <div className="from-foreground/50 absolute inset-0 bg-gradient-to-t to-transparent opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 max-md:opacity-100">
-                  <h3 className="text-accent flex h-full items-center justify-center font-bold select-none lg:text-lg">
+                  <h3 className="text-accent flex h-full items-center justify-center text-sm font-bold break-all select-none sm:text-base lg:text-lg">
                     <Link
                       href={`/categories/${cat.id}/products`}
                       className="select-none hover:underline"
@@ -55,8 +55,8 @@ export default function CategoriesCarousel({ categories }: CategoriesProps) {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="left-2" />
-      <CarouselNext className="right-2" />
+      <CarouselPrevious className="left-0 sm:left-2" />
+      <CarouselNext className="right-0 sm:right-2" />
     </Carousel>
   );
 }

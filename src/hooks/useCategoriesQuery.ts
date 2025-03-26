@@ -5,6 +5,6 @@ export default function useCategoriesQuery() {
   return useQuery({
     queryKey: ["categories"],
     queryFn: services.getCategories,
-    staleTime: 1000 * 60 * 10,
+    staleTime: 1000 * 60 * 15,
   });
 }

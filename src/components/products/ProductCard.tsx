@@ -34,17 +34,23 @@ export default function ProductCard({ product, productIdx }: ProductProps) {
           />
         ) : null}
       </div>
-      <Card className="rounded-t-none border-t-0">
+      <Card className="gap-2 rounded-t-none border-t-0">
         <CardHeader>
           <CardTitle className="line-clamp-1" title={product.title}>
             {product.title}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <CardDescription className="line-clamp-3 min-h-[3lh]">
+          <CardDescription
+            title={product.description}
+            className="line-clamp-3 min-h-[3lh]"
+          >
             {product.description}
           </CardDescription>
-          <p className="mt-2 text-lg font-bold">{product.price}$</p>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="mt-2 text-lg font-bold">{product.price}$</p>
+            <p>{product.category.name}</p>
+          </div>
         </CardContent>
       </Card>
     </div>

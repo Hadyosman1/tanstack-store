@@ -2,11 +2,12 @@ import ProductCard from "@/components/products/ProductCard";
 import services from "@/services/products";
 import { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { cache } from "react";
 
-const getProducts = cache(async (id: number) =>
-  services.getProductsByCategoryId(id),
-);
+const getProducts = cache(async (id: number) => {
+  return services.getProductsByCategoryId(id);
+});
 
 interface ProductsByCategoryPageProps {
   params: Promise<{ id: string }>;
@@ -17,6 +18,8 @@ export async function generateMetadata({
 }: ProductsByCategoryPageProps): Promise<Metadata> {
   const { id } = await params;
   const products = await getProducts(parseInt(id));
+  if (!products.length) notFound();
+
   const category = products[0].category;
 
   return {
@@ -31,6 +34,8 @@ export default async function ProductsByCategoryPage({
   const { id } = await params;
 
   const products = await getProducts(parseInt(id));
+
+  if (!products.length) notFound();
 
   return (
     <main className="container space-y-8 py-8">

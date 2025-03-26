@@ -2,10 +2,10 @@ import { ReactNode, useEffect, useRef } from "react";
 
 export default function InfiniteScrollingTriggerBoundary({
   children,
-  onBottomReachedFn,
+  onBottomReached,
 }: {
   children: ReactNode;
-  onBottomReachedFn: () => void;
+  onBottomReached: () => void;
 }) {
   const infiniteScrollingTriggerElRef = useRef<HTMLDivElement>(null);
 
@@ -14,7 +14,7 @@ export default function InfiniteScrollingTriggerBoundary({
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            onBottomReachedFn();
+            onBottomReached();
           }
         });
       },
@@ -26,7 +26,7 @@ export default function InfiniteScrollingTriggerBoundary({
     return () => {
       observer.disconnect();
     };
-  }, [onBottomReachedFn]);
+  }, [onBottomReached]);
 
   return (
     <div>

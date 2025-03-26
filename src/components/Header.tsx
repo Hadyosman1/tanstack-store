@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Header() {
   // TODO: Add search input component
   return (
-    <header className="py-4 shadow">
+    <header className="sticky top-0 z-10 flex h-(--header-height) bg-card items-center shadow">
       <div className="container">
         <nav className="flex items-center justify-end gap-1">
           <Link
