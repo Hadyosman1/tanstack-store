@@ -1,4 +1,4 @@
-import ProductCard from "@/components/products/ProductCard";
+import ProductList from "@/components/products/ProductList";
 import services from "@/services/products";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -6,7 +6,13 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 
 const getProducts = cache(async (id: number) => {
-  return services.getProductsByCategoryId(id);
+  try {
+    const products = await services.getProductsByCategoryId(id);
+    return products;
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return null;
+  }
 });
 
 interface ProductsByCategoryPageProps {
@@ -16,9 +22,13 @@ interface ProductsByCategoryPageProps {
 export async function generateMetadata({
   params,
 }: ProductsByCategoryPageProps): Promise<Metadata> {
-  const { id } = await params;
-  const products = await getProducts(parseInt(id));
-  if (!products.length) notFound();
+  const id = parseInt((await params).id);
+
+  if (isNaN(id)) return { title: "Products" };
+
+  const products = await getProducts(id);
+
+  if (!products || products.length === 0) return { title: "Products" };
 
   const category = products[0].category;
 
@@ -31,11 +41,13 @@ export async function generateMetadata({
 export default async function ProductsByCategoryPage({
   params,
 }: ProductsByCategoryPageProps) {
-  const { id } = await params;
+  const id = parseInt((await params).id);
 
-  const products = await getProducts(parseInt(id));
+  if (isNaN(id)) return notFound();
 
-  if (!products.length) notFound();
+  const products = await getProducts(id);
+
+  if (!products || products.length === 0) return notFound();
 
   return (
     <main className="container space-y-8 py-8">
@@ -44,7 +56,7 @@ export default async function ProductsByCategoryPage({
         alt={products[0].category.name}
         width={520}
         height={520}
-        className="mx-auto aspect-video max-h-96 w-full rounded-lg object-cover shadow-md"
+        className="mx-auto aspect-video max-h-96 w-full lg:object-[center_-180px] rounded-lg object-cover shadow-md"
         priority
       />
 
@@ -52,11 +64,7 @@ export default async function ProductsByCategoryPage({
         {products[0].category.name} products
       </h1>
 
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-4 py-8">
-        {products.map((pro, idx) => (
-          <ProductCard key={pro.id} product={pro} productIdx={idx} />
-        ))}
-      </div>
+      <ProductList products={products} />
     </main>
   );
 }

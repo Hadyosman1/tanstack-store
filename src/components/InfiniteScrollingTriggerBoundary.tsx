@@ -1,12 +1,20 @@
 import { ReactNode, useEffect, useRef } from "react";
 
+interface InfiniteScrollingTriggerBoundaryProps {
+  children: ReactNode;
+  onBottomReached: () => void;
+  threshold?: number;
+  rootMargin?: string;
+  root?: Element | null;
+}
+
 export default function InfiniteScrollingTriggerBoundary({
   children,
   onBottomReached,
-}: {
-  children: ReactNode;
-  onBottomReached: () => void;
-}) {
+  threshold,
+  rootMargin,
+  root,
+}: InfiniteScrollingTriggerBoundaryProps) {
   const infiniteScrollingTriggerElRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,7 +26,7 @@ export default function InfiniteScrollingTriggerBoundary({
           }
         });
       },
-      { threshold: 0.5, rootMargin: "300px" },
+      { threshold, rootMargin, root },
     );
 
     observer.observe(infiniteScrollingTriggerElRef.current!);
@@ -26,12 +34,12 @@ export default function InfiniteScrollingTriggerBoundary({
     return () => {
       observer.disconnect();
     };
-  }, [onBottomReached]);
+  }, [onBottomReached, threshold, rootMargin, root]);
 
   return (
-    <div>
+    <>
       {children}
       <div ref={infiniteScrollingTriggerElRef} />
-    </div>
+    </>
   );
 }

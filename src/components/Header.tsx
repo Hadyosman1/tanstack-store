@@ -1,19 +1,18 @@
 import Link from "next/link";
-// import SearchInput from "@/app/search-products/SearchInput";
+import SearchInput from "./SearchInput";
 
 export default function Header() {
-  // TODO: Add search input component
   return (
-    <header className="sticky top-0 z-10 flex h-(--header-height) bg-card items-center shadow">
+    <header className="bg-card sticky top-0 z-20 flex h-(--header-height) items-center shadow">
       <div className="container">
-        <nav className="flex items-center justify-end gap-1">
+        <nav className="flex flex-wrap items-center justify-end gap-1">
           <Link
-            className="me-auto text-xl font-semibold tracking-tight md:text-2xl"
+            className="me-auto text-xl font-black -tracking-wider text-[#6ba26e] md:text-2xl"
             href={"/"}
           >
-            Home
+            Tanstack Store
           </Link>
-          {/* <SearchInput q={""} /> */}
+          <SearchInput />
         </nav>
       </div>
     </header>

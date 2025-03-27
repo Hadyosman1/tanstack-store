@@ -115,12 +115,13 @@
 }
 
 @utility container {
-  @apply mx-auto px-4 lg:max-w-[1280px];
+  @apply mx-auto px-4 lg:max-w-[1280px] 2xl:max-w-[1460px];
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    scrollbar-width: thin;
   }
   body {
     @apply bg-background text-foreground;

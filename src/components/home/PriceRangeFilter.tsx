@@ -1,3 +1,5 @@
+"use client";
+
 import useGetProductsPriceRange from "@/hooks/useGetProductsPriceRange";
 import { scrollToHomeProductsSection } from "@/lib/utils";
 import { Loader } from "lucide-react";
@@ -6,7 +8,13 @@ import { useEffect, useState, useTransition } from "react";
 import { Button } from "../ui/button";
 import DualRangeSlider from "../ui/dual-range-slider";
 
-const PriceRangeFilter = () => {
+interface PriceRangeFilterProps {
+  closeFiltersBarWhenApplyFilterOnMobile: () => void;
+}
+
+const PriceRangeFilter = ({
+  closeFiltersBarWhenApplyFilterOnMobile,
+}: PriceRangeFilterProps) => {
   const [priceRange, setPriceRange] = useState([0, 0]);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -32,6 +40,7 @@ const PriceRangeFilter = () => {
         scroll: false,
       });
       scrollToHomeProductsSection();
+      closeFiltersBarWhenApplyFilterOnMobile();
     });
   };
 
@@ -46,6 +55,7 @@ const PriceRangeFilter = () => {
         scroll: false,
       });
       scrollToHomeProductsSection();
+      closeFiltersBarWhenApplyFilterOnMobile();
     });
   };
 
@@ -56,12 +66,12 @@ const PriceRangeFilter = () => {
     searchParams.has("price_min") || searchParams.has("price_max");
 
   const isPriceStateNotMatchSearchParamsPriceState =
-    priceRange[0] !== parseInt(searchParamsMinPrice ?? "0") ||
-    priceRange[1] !== parseInt(searchParamsMaxPrice ?? "0");
+    priceRange[0] !== Number(searchParamsMinPrice) ||
+    priceRange[1] !== Number(searchParamsMaxPrice);
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between border-b pb-2">
+      <div className="flex items-center justify-between pb-2">
         <h3 className="text-lg font-semibold">Price range</h3>
 
         {isSearchParamsHasPriceRangeFilter && (

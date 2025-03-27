@@ -1,15 +1,14 @@
+import { API_BASE_URL, PRODUCT_PAGE_SIZE } from "@/constants";
 import { Product } from "@/types/products";
 
 interface GetProductsWithFilterAndPaginationParams {
-  offset: number;
+  pageParam: number;
   searchParams: URLSearchParams;
 }
 
-const PRODUCT_PAGE_SIZE = 10;
-
 export default {
   getProductsWithFilterAndPagination: async ({
-    offset,
+    pageParam,
     searchParams,
   }: GetProductsWithFilterAndPaginationParams) => {
     const category = searchParams.get("category");
@@ -17,7 +16,7 @@ export default {
     const priceMax = searchParams.get("price_max");
 
     const newSearchParams = new URLSearchParams({
-      offset: `${(offset - 1) * PRODUCT_PAGE_SIZE}`,
+      offset: `${(pageParam - 1) * PRODUCT_PAGE_SIZE}`,
       limit: `${PRODUCT_PAGE_SIZE + 1}`,
       ...(category ? { categorySlug: category } : {}),
       ...(priceMin ? { price_min: priceMin } : {}),
@@ -25,7 +24,7 @@ export default {
     });
 
     const res = await fetch(
-      `https://api.escuelajs.co/api/v1/products?${newSearchParams.toString()}`,
+      `${API_BASE_URL}/products?${newSearchParams.toString()}`,
     );
 
     if (!res.ok) {
@@ -35,7 +34,30 @@ export default {
     return res.json() as Promise<Product[]>;
   },
   getAllProducts: async () => {
-    const res = await fetch("https://api.escuelajs.co/api/v1/products");
+    const res = await fetch(`${API_BASE_URL}/products`);
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch products, status: ${res.status}`);
+    }
+
+    return res.json() as Promise<Product[]>;
+  },
+  getProductsBySearchInTitle: async ({
+    searchTerm,
+    pageParam,
+  }: {
+    searchTerm: string;
+    pageParam: number;
+  }) => {
+    const searchParams = new URLSearchParams({
+      offset: `${(pageParam - 1) * PRODUCT_PAGE_SIZE}`,
+      limit: `${PRODUCT_PAGE_SIZE + 1}`,
+      title: searchTerm,
+    });
+
+    const res = await fetch(
+      `${API_BASE_URL}/products?${searchParams.toString()}`,
+    );
 
     if (!res.ok) {
       throw new Error(`Failed to fetch products, status: ${res.status}`);
@@ -44,12 +66,32 @@ export default {
     return res.json() as Promise<Product[]>;
   },
   getProductsByCategoryId: async (id: number) => {
-    const res = await fetch(
-      `https://api.escuelajs.co/api/v1/categories/${id}/products`,
-    );
+    const res = await fetch(`${API_BASE_URL}/categories/${id}/products`);
+
     if (!res.ok) {
       throw new Error(`Failed to fetch products, status: ${res.status}`);
     }
+
+    return res.json() as Promise<Product[]>;
+  },
+  getProductBySlug: async (slug: string) => {
+    const res = await fetch(`${API_BASE_URL}/products/slug/${slug}`);
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch product, status: ${res.status}`);
+    }
+
+    return res.json() as Promise<Product>;
+  },
+  getRelatedProductsBySlug: async (slug: string) => {
+    const res = await fetch(`${API_BASE_URL}/products/slug/${slug}/related`);
+
+    if (!res.ok) {
+      throw new Error(
+        `Failed to fetch related products, status: ${res.status}`,
+      );
+    }
+
     return res.json() as Promise<Product[]>;
   },
 };

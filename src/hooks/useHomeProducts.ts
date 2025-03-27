@@ -1,10 +1,10 @@
+import { PRODUCT_PAGE_SIZE } from "@/constants";
+import { delay } from "@/lib/utils";
 import services from "@/services/products";
 import { Product as ProductType } from "@/types/products";
 import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useCallback } from "react";
-
-const PRODUCT_PAGE_SIZE = 10;
 
 export default function useHomeProducts() {
   const searchParams = useSearchParams();
@@ -31,11 +31,12 @@ export default function useHomeProducts() {
       searchParams.get("price_min"),
       searchParams.get("price_max"),
     ],
-    queryFn: async ({ pageParam = 1 }: { pageParam: number }) =>
-      services.getProductsWithFilterAndPagination({
-        offset: pageParam,
+    queryFn: async ({ pageParam = 1 }: { pageParam: number }) => {
+      return services.getProductsWithFilterAndPagination({
+        pageParam,
         searchParams,
-      }),
+      });
+    },
     getNextPageParam: (lastPage, _, lastPageParam) => {
       return lastPage.length === PRODUCT_PAGE_SIZE + 1
         ? lastPageParam + 1
@@ -55,5 +56,12 @@ export default function useHomeProducts() {
     }
   }, [hasNextPage, isFetchingNextPage, isLoading, fetchNextPage]);
 
-  return { products, onBottomReached, isLoading, isError, isSuccess };
+  return {
+    products,
+    onBottomReached,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    isSuccess,
+  };
 }

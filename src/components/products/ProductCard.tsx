@@ -8,13 +8,14 @@ import {
 import { Product as ProductType } from "@/types/products";
 import ProductCardCarousel from "./ProductCardCarousel";
 import ImageWithFallback from "../ImageWithFallback";
+import Link from "next/link";
 
 interface ProductProps {
   product: ProductType;
   productIdx: number;
 }
 
-// TODO: Add Product card skeleton and finalize the ProductCard
+// TODO: Add Action buttons to this Product Card
 export default function ProductCard({ product, productIdx }: ProductProps) {
   return (
     <div>
@@ -34,7 +35,7 @@ export default function ProductCard({ product, productIdx }: ProductProps) {
           />
         ) : null}
       </div>
-      <Card className="gap-2 rounded-t-none border-t-0">
+      <Card className="relative gap-2 rounded-t-none border-t-0">
         <CardHeader>
           <CardTitle className="line-clamp-1" title={product.title}>
             {product.title}
@@ -52,6 +53,9 @@ export default function ProductCard({ product, productIdx }: ProductProps) {
             <p>{product.category.name}</p>
           </div>
         </CardContent>
+        <Link className="absolute inset-0" href={`/products/${product.slug}`}>
+          <span className="sr-only">Go to product page</span>
+        </Link>
       </Card>
     </div>
   );

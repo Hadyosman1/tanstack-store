@@ -1,33 +1,34 @@
 "use client";
-import productImagePlaceholder from "@/../public/product-image-placeholder.png";
+
+import { useState } from "react";
 import Image, { ImageProps } from "next/image";
+import productImagePlaceholder from "@/../public/product-image-placeholder.png";
 
 interface ImageWithFallbackProps extends ImageProps {
   size?: number;
   className?: string;
 }
 
+const isValidImageUrl = (url: string) => /^https?:\/\//.test(url);
+
 export default function ImageWithFallback({
   size = 520,
   className,
-  ...others
+  src,
+  ...props
 }: ImageWithFallbackProps) {
+  const [imgSrc, setImgSrc] = useState(
+    isValidImageUrl(src as string) ? src : productImagePlaceholder.src,
+  );
+
   return (
     <Image
       width={size}
       height={size}
       className={className}
-      onError={(e) => {
-        const target = e.target as HTMLImageElement;
-        const newImage = document.createElement("img");
-        newImage.src = productImagePlaceholder.src;
-        newImage.alt = "placeholder";
-        newImage.width = size;
-        newImage.height = size;
-        newImage.className = className || "";
-        target.replaceWith(newImage);
-      }}
-      {...others}
+      src={imgSrc}
+      onError={() => setImgSrc(productImagePlaceholder.src)}
+      {...props}
     />
   );
 }
