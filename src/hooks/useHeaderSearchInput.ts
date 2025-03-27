@@ -81,7 +81,7 @@ export default function useHeaderSearchInput() {
         }
       }
     },
-    [isFormHasFocus],
+    [isFormHasFocus, isFetching],
   );
 
   useEffect(() => {

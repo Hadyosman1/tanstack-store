@@ -1,7 +1,7 @@
 import { Category } from "@/types/categories";
 import { API_BASE_URL } from "@/constants";
 
-export default {
+const services = {
   getCategories: async () => {
     const res = await fetch(`${API_BASE_URL}/categories`);
 
@@ -12,3 +12,5 @@ export default {
     return res.json() as Promise<Category[]>;
   },
 };
+
+export default services;

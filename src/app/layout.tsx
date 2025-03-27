@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import Header from "@/components/Header";
-import { Inter, Nunito } from "next/font/google";
+import { Nunito } from "next/font/google";
 
 const nunito = Nunito({
   subsets: ["latin"],

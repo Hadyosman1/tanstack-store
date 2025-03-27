@@ -1,5 +1,4 @@
 import { PRODUCT_PAGE_SIZE } from "@/constants";
-import { delay } from "@/lib/utils";
 import services from "@/services/products";
 import { Product as ProductType } from "@/types/products";
 import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";

@@ -6,7 +6,7 @@ interface GetProductsWithFilterAndPaginationParams {
   searchParams: URLSearchParams;
 }
 
-export default {
+const services = {
   getProductsWithFilterAndPagination: async ({
     pageParam,
     searchParams,
@@ -95,3 +95,5 @@ export default {
     return res.json() as Promise<Product[]>;
   },
 };
+
+export default services;

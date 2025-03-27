@@ -15,6 +15,7 @@ export default function ImageWithFallback({
   size = 520,
   className,
   src,
+  alt,
   ...props
 }: ImageWithFallbackProps) {
   const [imgSrc, setImgSrc] = useState(
@@ -27,6 +28,7 @@ export default function ImageWithFallback({
       height={size}
       className={className}
       src={imgSrc}
+      alt={alt || ""}
       onError={() => setImgSrc(productImagePlaceholder.src)}
       {...props}
     />
