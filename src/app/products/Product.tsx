@@ -1,8 +1,8 @@
 "use client";
 
-import ImageWithFallback from "@/components/ImageWithFallback";
+import ImageWithErrorFallback from "@/components/ImageWithErrorFallback";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, openAuthDialogIfNotLoggedIn } from "@/lib/utils";
 import { Product as ProductType } from "@/types/products";
 import { CreditCardIcon, HeartIcon, ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
@@ -15,11 +15,15 @@ interface ProductProps {
 export default function Product({ product }: ProductProps) {
   const [activeImageIdx, setActiveImageIdx] = useState(0);
 
+  const handleAddToCart = openAuthDialogIfNotLoggedIn(() => {
+    console.log("Add To Cart");
+  });
+
   return (
     <div className="flex flex-col gap-10 md:flex-row">
-      <div className="basis-2/5">
+      <div className="basis-2/5 xl:basis-1/2">
         <div className="space-y-4">
-          <ImageWithFallback
+          <ImageWithErrorFallback
             key={product.images[activeImageIdx]}
             priority
             src={product.images[activeImageIdx]}
@@ -44,7 +48,7 @@ export default function Product({ product }: ProductProps) {
                       },
                     )}
                   >
-                    <ImageWithFallback
+                    <ImageWithErrorFallback
                       priority
                       src={img}
                       alt={product.title}
@@ -70,6 +74,7 @@ export default function Product({ product }: ProductProps) {
 
           <div className="flex flex-wrap items-center gap-3">
             <Button
+              onClick={handleAddToCart}
               variant="outline"
               className="min-w-max grow basis-3/5 cursor-pointer bg-[#6ba26e] px-10 hover:bg-[#6bc26e]"
             >
@@ -96,7 +101,7 @@ export default function Product({ product }: ProductProps) {
             className="text-muted-foreground hover:bg-muted mt-8 flex w-fit items-center gap-4 rounded-lg border p-3 text-lg shadow-md hover:underline md:p-5 md:text-xl"
           >
             <span>Category: {product.category.name}</span>
-            <ImageWithFallback
+            <ImageWithErrorFallback
               src={product.category.image}
               alt={product.category.name}
               width={80}

@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Product } from "@/types/products";
-import ImageWithFallback from "../ImageWithFallback";
+import ImageWithErrorFallback from "../ImageWithErrorFallback";
 
 interface ProductCardCarouselProps {
   images: Product["images"];
@@ -22,7 +22,7 @@ export default function ProductCardCarousel({
       <CarouselContent>
         {images.map((img) => (
           <CarouselItem key={img}>
-            <ImageWithFallback
+            <ImageWithErrorFallback
               src={img}
               alt="product image"
               width={520}

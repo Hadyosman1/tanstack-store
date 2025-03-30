@@ -1,13 +1,12 @@
 import { PRODUCT_PAGE_SIZE } from "@/constants";
 import useDebounce from "@/hooks/useDebounce";
 import useSearchQuery from "@/hooks/useSearchQuery";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function useHeaderSearchInput() {
   const [value, setValue] = useState("");
   const debouncedValue = useDebounce(value, 300);
   const [isResultsVisible, setIsResultsVisible] = useState(false);
-  const id = useId();
   const searchResultsContainerRef = useRef<HTMLDivElement>(null);
   const [isFormHasFocus, setIsFormHasFocus] = useState(false);
 
@@ -111,7 +110,6 @@ export default function useHeaderSearchInput() {
     debouncedValue,
     isResultsVisible,
     setIsResultsVisible,
-    id,
     searchResultsContainerRef,
     isFormHasFocus,
     setIsFormHasFocus,

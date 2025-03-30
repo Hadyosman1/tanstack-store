@@ -1,8 +1,10 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import AuthDialog from "@/components/auth/AuthDialog";
 import Header from "@/components/Header";
+import { Toaster } from "@/components/ui/sonner";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
+import "./globals.css";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -32,6 +34,8 @@ export default function RootLayout({
         <ReactQueryProvider>
           <Header />
           {children}
+          <Toaster />
+          <AuthDialog />
         </ReactQueryProvider>
       </body>
     </html>

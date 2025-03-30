@@ -11,7 +11,7 @@ interface ImageWithFallbackProps extends ImageProps {
 
 const isValidImageUrl = (url: string) => /^https?:\/\//.test(url);
 
-export default function ImageWithFallback({
+export default function ImageWithErrorFallback({
   size = 520,
   className,
   src,

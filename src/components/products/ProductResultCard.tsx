@@ -1,5 +1,5 @@
 import { Product } from "@/types/products";
-import ImageWithFallback from "../ImageWithFallback";
+import ImageWithErrorFallback from "../ImageWithErrorFallback";
 import Link from "next/link";
 
 interface ProductResultCardProps {
@@ -18,7 +18,7 @@ export default function ProductResultCard({
       data-search-result-card={idx}
       className="has-[a:hover,a:focus]:bg-accent-foreground/90 has-[a:hover,a:focus]:text-accent relative flex items-center gap-2 p-2 transition-colors duration-200 ease-in-out"
     >
-      <ImageWithFallback
+      <ImageWithErrorFallback
         src={product.images[0]}
         alt={product.title}
         width={50}

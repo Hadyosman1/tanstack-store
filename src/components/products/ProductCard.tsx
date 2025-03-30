@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Product as ProductType } from "@/types/products";
 import ProductCardCarousel from "./ProductCardCarousel";
-import ImageWithFallback from "../ImageWithFallback";
+import ImageWithErrorFallback from "../ImageWithErrorFallback";
 import Link from "next/link";
 
 interface ProductProps {
@@ -26,7 +26,7 @@ export default function ProductCard({ product, productIdx }: ProductProps) {
             priority={productIdx < 8}
           />
         ) : product.images.length === 1 ? (
-          <ImageWithFallback
+          <ImageWithErrorFallback
             priority={productIdx < 8}
             src={product.images[0]}
             alt="product image"

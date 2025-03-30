@@ -9,7 +9,7 @@ import {
 import { Category } from "@/types/categories";
 import { LinkIcon } from "lucide-react";
 import Link from "next/link";
-import ImageWithFallback from "../ImageWithFallback";
+import ImageWithErrorFallback from "../ImageWithErrorFallback";
 
 interface CategoriesProps {
   categories: Category[];
@@ -31,7 +31,7 @@ export default function CategoriesCarousel({ categories }: CategoriesProps) {
           >
             <div className="p-0.5">
               <Card className="group relative overflow-hidden p-0">
-                <ImageWithFallback
+                <ImageWithErrorFallback
                   src={cat.image}
                   alt={cat.name}
                   width={520}
