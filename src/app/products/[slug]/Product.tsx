@@ -2,10 +2,11 @@
 
 import ImageWithErrorFallback from "@/components/ImageWithErrorFallback";
 import AddToCartButton from "@/components/products/AddToCartButton";
+import AddToWishlistButton from "@/components/products/AddToWishlistButton";
 import { Button } from "@/components/ui/button";
-import { cn, openAuthDialogIfNotLoggedIn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Product as ProductType } from "@/types/products";
-import { CreditCardIcon, HeartIcon } from "lucide-react";
+import { CreditCardIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -15,10 +16,6 @@ interface ProductProps {
 
 export default function Product({ product }: ProductProps) {
   const [activeImageIdx, setActiveImageIdx] = useState(0);
-
-  const handleAddToWishlist = openAuthDialogIfNotLoggedIn(() => {
-    console.log("Add To Wishlist");
-  });
 
   return (
     <div className="flex flex-col gap-10 md:flex-row">
@@ -83,14 +80,7 @@ export default function Product({ product }: ProductProps) {
               product={product}
             />
 
-            <Button
-              onClick={handleAddToWishlist}
-              variant="outline"
-              className="min-w-max shrink-0 px-10 sm:grow"
-            >
-              <span className="max-sm:hidden">Add to wishlist</span>
-              <HeartIcon />
-            </Button>
+            <AddToWishlistButton product={product} size="icon" />
           </div>
 
           <Link

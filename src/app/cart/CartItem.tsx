@@ -3,14 +3,9 @@
 import ImageWithErrorFallback from "@/components/ImageWithErrorFallback";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { delay } from "@/lib/utils";
-import services from "@/services/products";
-import {
-  useCartStore,
-  useGetCartItemQuantity,
-} from "@/store/auth/useCartStore";
+import useGetSuspendedProduct from "@/hooks/useGetSuspendedProduct";
+import { useCartStore, useGetCartItemQuantity } from "@/store/useCartStore";
 import { Product } from "@/types/products";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { AlertCircleIcon, MinusIcon, PlusIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -24,14 +19,7 @@ export default function CartItem({ id, slug }: CartItemProps) {
     data: product,
     isError,
     isSuccess,
-  } = useSuspenseQuery({
-    queryKey: ["product", `${id}-${slug}`],
-    queryFn: async () => {
-      await delay(2000);
-      return services.getProductBySlug(slug);
-    },
-    staleTime: 1000 * 60 * 5,
-  });
+  } = useGetSuspendedProduct({ id, slug });
 
   const increaseQuantity = useCartStore((state) => state.addToCart);
   const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
@@ -51,7 +39,7 @@ export default function CartItem({ id, slug }: CartItemProps) {
 
   if (isSuccess) {
     return (
-      <div className="bg-accent flex flex-col items-center gap-5 rounded-md border p-5 shadow md:flex-row">
+      <div className="bg-accent flex flex-col max-md:items-center gap-5 rounded-md border p-5 shadow md:flex-row">
         <ImageWithErrorFallback
           src={product.images[0]}
           alt={product.title}

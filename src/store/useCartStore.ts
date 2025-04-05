@@ -2,7 +2,7 @@ import { Product } from "@/types/products";
 import { User } from "@/types/users";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { useUserStore } from "./useUserStore";
+import { useUserStore } from "./auth/useUserStore";
 
 interface CartItem {
   id: Product["id"];

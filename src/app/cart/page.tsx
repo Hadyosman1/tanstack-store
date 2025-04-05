@@ -3,16 +3,16 @@
 import { useUserStore } from "@/store/auth/useUserStore";
 import { redirect } from "next/navigation";
 import CartItems from "./CartItems";
-import { useCartStore, useGetCartQuantity } from "@/store/auth/useCartStore";
+import { useCartStore, useGetCartQuantity } from "@/store/useCartStore";
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
 
 export default function CartPage() {
   const user = useUserStore((state) => state.user);
-  if (!user) redirect("/");
-
   const clearCart = useCartStore((state) => state.clearCart);
   const cartQuantity = useGetCartQuantity();
+
+  if (!user) redirect("/");
 
   return (
     <main className="container space-y-8 py-8">

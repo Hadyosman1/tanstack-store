@@ -6,23 +6,21 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Product as ProductType } from "@/types/products";
-import ProductCardCarousel from "./ProductCardCarousel";
-import ImageWithErrorFallback from "../ImageWithErrorFallback";
 import Link from "next/link";
+import ImageWithErrorFallback from "../ImageWithErrorFallback";
 import AddToCartButton from "./AddToCartButton";
-import { Button } from "../ui/button";
-import { HeartIcon } from "lucide-react";
+import AddToWishlistButton from "./AddToWishlistButton";
+import ProductCardCarousel from "./ProductCardCarousel";
 
 interface ProductProps {
   product: ProductType;
   productIdx: number;
 }
 
-// TODO: Add Action buttons to this Product Card
 export default function ProductCard({ product, productIdx }: ProductProps) {
   return (
     <div className="self-start overflow-hidden rounded-lg border">
-      <div className="overflow-hidden rounded-t-lg shadow-md">
+      <div className="grid aspect-square place-content-center overflow-hidden rounded-t-lg shadow-md">
         {product.images.length > 1 ? (
           <ProductCardCarousel
             images={product.images}
@@ -62,7 +60,12 @@ export default function ProductCard({ product, productIdx }: ProductProps) {
           <hr className="my-2" />
           <div className="flex flex-wrap items-center justify-between gap-3 pt-2 text-sm">
             <p className="font-bold">{product.price}$</p>
-            <p>{product.category.name}</p>
+            <Link
+              href={`/categories/${product.category.id}/products`}
+              className="hover:underline"
+            >
+              <p>{product.category.name}</p>
+            </Link>
           </div>
           <hr className="my-2" />
           <div className="flex items-center gap-1">
@@ -71,10 +74,7 @@ export default function ProductCard({ product, productIdx }: ProductProps) {
               className="grow text-xs"
               size="sm"
             />
-            <Button variant="secondary">
-              <HeartIcon />
-              <span className="sr-only">Add to wishlist</span>
-            </Button>
+            <AddToWishlistButton product={product} size="icon" />
           </div>
         </CardContent>
       </Card>

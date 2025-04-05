@@ -1,6 +1,6 @@
 "use client";
 
-import { useCartStore } from "@/store/auth/useCartStore";
+import { useCartStore } from "@/store/useCartStore";
 import { Suspense } from "react";
 import CartItem from "./CartItem";
 import CartItemSkeleton from "./CartItemSkeleton";

@@ -6,7 +6,7 @@ import { Button, buttonVariants } from "../ui/button";
 import {
   useCartStore,
   useGetCartItemQuantity,
-} from "@/store/auth/useCartStore";
+} from "@/store/useCartStore";
 import { Product } from "@/types/products";
 import { VariantProps } from "class-variance-authority";
 
@@ -14,6 +14,7 @@ interface AddToCartButtonProps extends VariantProps<typeof buttonVariants> {
   product: Product;
   className?: string;
 }
+
 export default function AddToCartButton({
   product,
   className,
