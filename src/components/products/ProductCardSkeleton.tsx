@@ -44,6 +44,11 @@ export function ProductCardSkeleton() {
             <Skeleton className="h-6 w-1/3" />
             <Skeleton className="h-6 w-1/3" />
           </div>
+
+          <div className="mt-2 flex flex-wrap items-center  gap-1">
+            <Skeleton className="h-6 grow" />
+            <Skeleton className="h-6 w-1/4" />
+          </div>
         </CardContent>
       </Card>
     </div>

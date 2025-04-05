@@ -10,5 +10,9 @@ export default function LoginButton() {
 
   if (user || isFetchingUser) return null;
 
-  return <Button onClick={() => setAuthDialogOpen(true)}>Login</Button>;
+  return (
+    <Button size="sm" onClick={() => setAuthDialogOpen(true)}>
+      Login
+    </Button>
+  );
 }

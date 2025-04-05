@@ -13,7 +13,11 @@ export default function ProductList({ products, className }: ProductListProps) {
   return (
     <ProductsGrid className={className}>
       {products.map((product, idx) => (
-        <ProductCard key={product.slug} product={product} productIdx={idx} />
+        <ProductCard
+          key={`${product.slug}-${product.id}`}
+          product={product}
+          productIdx={idx}
+        />
       ))}
     </ProductsGrid>
   );

@@ -68,7 +68,7 @@ const CategoriesFilter = ({
               type="button"
               onClick={handleClearCategoryFilter}
               disabled={isPending}
-              className="text-muted-foreground cursor-pointer gap-0.5"
+              className="text-muted-foreground gap-0.5"
             >
               Clear
               {isPending && selectedCategory === "" && (

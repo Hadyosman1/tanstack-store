@@ -217,7 +217,7 @@ export default function SignUpForm({
 
           <Button
             type="submit"
-            className="w-full min-w-32 cursor-pointer"
+            className="w-full min-w-32"
             disabled={form.formState.isSubmitting || isUploading}
           >
             {form.formState.isSubmitting ? (
@@ -271,7 +271,7 @@ const AvatarPreview = ({
           type="button"
           onClick={clearAvatar}
           size="icon"
-          className="absolute -top-2 -right-2 size-6 cursor-pointer rounded-full"
+          className="absolute -top-2 -right-2 size-6 rounded-full"
         >
           <XIcon size={20} />
           <div className="sr-only">Remove avatar</div>

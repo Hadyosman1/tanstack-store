@@ -1,10 +1,11 @@
 "use client";
 
 import ImageWithErrorFallback from "@/components/ImageWithErrorFallback";
+import AddToCartButton from "@/components/products/AddToCartButton";
 import { Button } from "@/components/ui/button";
 import { cn, openAuthDialogIfNotLoggedIn } from "@/lib/utils";
 import { Product as ProductType } from "@/types/products";
-import { CreditCardIcon, HeartIcon, ShoppingCartIcon } from "lucide-react";
+import { CreditCardIcon, HeartIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -15,8 +16,8 @@ interface ProductProps {
 export default function Product({ product }: ProductProps) {
   const [activeImageIdx, setActiveImageIdx] = useState(0);
 
-  const handleAddToCart = openAuthDialogIfNotLoggedIn(() => {
-    console.log("Add To Cart");
+  const handleAddToWishlist = openAuthDialogIfNotLoggedIn(() => {
+    console.log("Add To Wishlist");
   });
 
   return (
@@ -41,12 +42,9 @@ export default function Product({ product }: ProductProps) {
                   <button
                     key={img}
                     onClick={() => setActiveImageIdx(idx)}
-                    className={cn(
-                      "cursor-pointer overflow-hidden rounded shadow-md",
-                      {
-                        "ring-primary ring-3": idx === activeImageIdx,
-                      },
-                    )}
+                    className={cn("overflow-hidden rounded shadow-md", {
+                      "ring-primary ring-3": idx === activeImageIdx,
+                    })}
                   >
                     <ImageWithErrorFallback
                       priority
@@ -70,42 +68,41 @@ export default function Product({ product }: ProductProps) {
             {product.title}
           </h1>
           <p className="max-w-xl text-lg md:text-xl">{product.description}</p>
-          <p className="text-lg font-bold md:text-2xl">{product.price}$</p>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <Button
-              onClick={handleAddToCart}
-              variant="outline"
-              className="min-w-max grow basis-3/5 cursor-pointer bg-[#6ba26e] px-10 hover:bg-[#6bc26e]"
-            >
-              <span className="">Add to Cart</span>
-              <ShoppingCartIcon />
+          <p className="border-y py-2 text-lg font-bold md:text-2xl">
+            Price: {product.price}$
+          </p>
+
+          <div className="flex flex-wrap items-center gap-x-1 gap-y-2">
+            <Button className="grow-[3]">
+              Buy Now <CreditCardIcon />
             </Button>
 
+            <AddToCartButton
+              className="min-w-max shrink-0 grow"
+              product={product}
+            />
+
             <Button
+              onClick={handleAddToWishlist}
               variant="outline"
-              className="min-w-max grow cursor-pointer px-10 max-md:max-w-fit"
-              size="icon"
+              className="min-w-max shrink-0 px-10 sm:grow"
             >
               <span className="max-sm:hidden">Add to wishlist</span>
               <HeartIcon />
             </Button>
           </div>
 
-          <Button className="cursor-pointer">
-            Buy Now <CreditCardIcon />
-          </Button>
-
           <Link
             href={`/categories/${product.category.id}/products`}
-            className="text-muted-foreground hover:bg-muted mt-8 flex w-fit items-center gap-4 rounded-lg border p-3 text-lg shadow-md hover:underline md:p-5 md:text-xl"
+            className="text-muted-foreground hover:bg-muted mt-8 flex w-fit items-center gap-4 rounded-lg border p-3 text-lg shadow-md hover:underline md:text-xl"
           >
             <span>Category: {product.category.name}</span>
             <ImageWithErrorFallback
               src={product.category.image}
               alt={product.category.name}
-              width={80}
-              height={80}
+              width={60}
+              height={60}
               className="rounded-full"
             />
           </Link>

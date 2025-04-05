@@ -128,9 +128,13 @@
   }
 }
 
-/* TODO: Remove all buttons cursor-pointer class */
 @layer components {
-  button {
+  button,
+  [role="button"] {
     @apply cursor-pointer;
+  }
+
+  :disabled {
+    @apply cursor-default;
   }
 }

@@ -11,7 +11,7 @@ export default function ProductsGrid({
   return (
     <div
       className={cn(
-        "grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4 py-8",
+        "grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4 py-8",
         className,
       )}
     >

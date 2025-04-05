@@ -37,7 +37,6 @@ export default function FiltersBar({ className }: FiltersBarProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="cursor-pointer"
           onClick={() => setIsFiltersOpen(!isFiltersOpen)}
         >
           {isFiltersOpen ? <XIcon /> : <FilterIcon />}

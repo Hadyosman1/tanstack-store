@@ -98,7 +98,7 @@ export default function LoginForm({
 
           <Button
             type="submit"
-            className="w-full min-w-32 cursor-pointer"
+            className="w-full min-w-32 "
             disabled={form.formState.isSubmitting}
           >
             {form.formState.isSubmitting ? (

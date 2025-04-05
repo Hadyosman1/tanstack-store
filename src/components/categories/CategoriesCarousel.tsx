@@ -10,6 +10,7 @@ import { Category } from "@/types/categories";
 import { LinkIcon } from "lucide-react";
 import Link from "next/link";
 import ImageWithErrorFallback from "../ImageWithErrorFallback";
+import { cn } from "@/lib/utils";
 
 interface CategoriesProps {
   categories: Category[];
@@ -17,12 +18,7 @@ interface CategoriesProps {
 
 export default function CategoriesCarousel({ categories }: CategoriesProps) {
   return (
-    <Carousel
-      opts={{
-        align: "center",
-      }}
-      className="w-full"
-    >
+    <Carousel opts={{ align: "center" }} className="w-full">
       <CarouselContent>
         {categories.map((cat) => (
           <CarouselItem
@@ -55,8 +51,20 @@ export default function CategoriesCarousel({ categories }: CategoriesProps) {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="left-0 sm:left-2" />
-      <CarouselNext className="right-0 sm:right-2" />
+      <CarouselPrevious
+        className={cn("left-0 sm:left-2", {
+          "lg:hidden": categories.length === 5,
+          "md:hidden": categories.length === 3,
+          hidden: categories.length === 2,
+        })}
+      />
+      <CarouselNext
+        className={cn("right-0 sm:right-2", {
+          "lg:hidden": categories.length === 5,
+          "md:hidden": categories.length === 3,
+          hidden: categories.length === 2,
+        })}
+      />
     </Carousel>
   );
 }

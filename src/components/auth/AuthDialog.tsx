@@ -61,14 +61,14 @@ export default function AuthDialog() {
           <TabsList className="bg-muted h-11 w-full border">
             <TabsTrigger
               onClick={() => setActiveTab(TabsValues.LOGIN)}
-              className="grow cursor-pointer"
+              className="grow"
               value={TabsValues.LOGIN}
             >
               Login
             </TabsTrigger>
             <TabsTrigger
               onClick={() => setActiveTab(TabsValues.SIGN_UP)}
-              className="grow cursor-pointer"
+              className="grow"
               value={TabsValues.SIGN_UP}
             >
               Sign up

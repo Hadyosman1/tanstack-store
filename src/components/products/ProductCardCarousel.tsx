@@ -20,8 +20,8 @@ export default function ProductCardCarousel({
   return (
     <Carousel className="group w-full">
       <CarouselContent>
-        {images.map((img) => (
-          <CarouselItem key={img}>
+        {images.map((img, idx) => (
+          <CarouselItem key={`${img}-${idx}`}>
             <ImageWithErrorFallback
               src={img}
               alt="product image"

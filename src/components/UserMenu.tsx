@@ -29,7 +29,7 @@ export default function UserMenu() {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger className="relative aspect-square size-12 cursor-pointer rounded-full border p-0 shadow">
+      <PopoverTrigger className="relative aspect-square size-9 rounded-full border p-0 shadow">
         {user ? (
           <>
             <ImageWithErrorFallback
@@ -38,7 +38,7 @@ export default function UserMenu() {
               size={48}
               className="h-full w-full rounded-full object-cover"
             />
-            <span className="bg-secondary absolute right-0 bottom-0 translate-x-1/4 translate-y-1/4 rounded-full border p-0.5">
+            <span className="bg-secondary absolute right-0 bottom-0 translate-x-1/5 translate-y-2/5 rounded-full border p-0.25">
               {open ? (
                 <ChevronUp className="size-3" />
               ) : (
@@ -66,7 +66,7 @@ export default function UserMenu() {
           <hr />
           <button
             onClick={logout}
-            className="hover:bg-primary/10 flex cursor-pointer items-center gap-1 rounded px-2 py-1 transition-colors duration-200"
+            className="hover:bg-primary/10 flex items-center gap-1 rounded px-2 py-1 transition-colors duration-200"
           >
             <LogOutIcon className="size-4" />
             Logout

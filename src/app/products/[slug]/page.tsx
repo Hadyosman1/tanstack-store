@@ -4,7 +4,7 @@ import services from "@/services/products";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache, Suspense } from "react";
-import Product from "../Product";
+import Product from "./Product";
 import RelatedProducts from "./RelatedProducts";
 
 const getProduct = cache(services.getProductBySlug);
@@ -35,7 +35,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) notFound();
 
   return (
-    <main className="container space-y-8 py-8">
+    <main className="container lg:max-w-6xl space-y-8 py-8">
       <Product product={product} />
 
       <Suspense

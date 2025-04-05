@@ -80,7 +80,7 @@ const PriceRangeFilter = ({
             type="button"
             onClick={handleClearPriceRange}
             disabled={isPending}
-            className="text-muted-foreground cursor-pointer gap-0.5"
+            className="text-muted-foreground gap-0.5"
           >
             Clear
             {isPending && <Loader className="mt-1 size-4 animate-spin" />}
@@ -104,7 +104,7 @@ const PriceRangeFilter = ({
         <Button
           disabled={isPending}
           type="submit"
-          className="ms-auto flex cursor-pointer"
+          className="ms-auto flex"
           onClick={handleApplyPriceRange}
         >
           Apply {isPending && <Loader className="size-4 animate-spin" />}

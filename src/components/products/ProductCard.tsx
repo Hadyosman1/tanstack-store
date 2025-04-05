@@ -9,6 +9,9 @@ import { Product as ProductType } from "@/types/products";
 import ProductCardCarousel from "./ProductCardCarousel";
 import ImageWithErrorFallback from "../ImageWithErrorFallback";
 import Link from "next/link";
+import AddToCartButton from "./AddToCartButton";
+import { Button } from "../ui/button";
+import { HeartIcon } from "lucide-react";
 
 interface ProductProps {
   product: ProductType;
@@ -18,7 +21,7 @@ interface ProductProps {
 // TODO: Add Action buttons to this Product Card
 export default function ProductCard({ product, productIdx }: ProductProps) {
   return (
-    <div>
+    <div className="self-start overflow-hidden rounded-lg border">
       <div className="overflow-hidden rounded-t-lg shadow-md">
         {product.images.length > 1 ? (
           <ProductCardCarousel
@@ -35,27 +38,45 @@ export default function ProductCard({ product, productIdx }: ProductProps) {
           />
         ) : null}
       </div>
-      <Card className="relative gap-2 rounded-t-none border-t-0">
-        <CardHeader>
-          <CardTitle className="line-clamp-1" title={product.title}>
-            {product.title}
+      <Card className="gap-2 rounded-none rounded-t-none border-none py-3">
+        <CardHeader className="px-3">
+          <CardTitle
+            className="line-clamp-1 hover:underline"
+            title={product.title}
+          >
+            <Link
+              className="inset-0 contents"
+              href={`/products/${product.slug}`}
+            >
+              {product.title}
+            </Link>
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-3">
           <CardDescription
             title={product.description}
             className="line-clamp-3 min-h-[3lh]"
           >
             {product.description}
           </CardDescription>
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="mt-2 text-lg font-bold">{product.price}$</p>
+          <hr className="my-2" />
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-2 text-sm">
+            <p className="font-bold">{product.price}$</p>
             <p>{product.category.name}</p>
           </div>
+          <hr className="my-2" />
+          <div className="flex items-center gap-1">
+            <AddToCartButton
+              product={product}
+              className="grow text-xs"
+              size="sm"
+            />
+            <Button variant="secondary">
+              <HeartIcon />
+              <span className="sr-only">Add to wishlist</span>
+            </Button>
+          </div>
         </CardContent>
-        <Link className="absolute inset-0" href={`/products/${product.slug}`}>
-          <span className="sr-only">Go to product page</span>
-        </Link>
       </Card>
     </div>
   );
