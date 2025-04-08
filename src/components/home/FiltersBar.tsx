@@ -18,7 +18,7 @@ export default function FiltersBar({ className }: FiltersBarProps) {
     if (window.innerWidth < mdBreakpoint) {
       setIsFiltersOpen(false);
     }
-  }, []);
+  }, [mdBreakpoint]);
 
   useEffect(() => {
     window.addEventListener("resize", closeFiltersBar);
@@ -26,7 +26,7 @@ export default function FiltersBar({ className }: FiltersBarProps) {
     return () => {
       window.removeEventListener("resize", closeFiltersBar);
     };
-  }, []);
+  }, [closeFiltersBar]);
 
   return (
     <aside

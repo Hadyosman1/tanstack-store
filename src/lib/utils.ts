@@ -23,8 +23,10 @@ export async function delay(ms: number) {
 }
 
 export function getTwBreakpoint(breakpoint: keyof typeof defaultTheme.screens) {
+  if (typeof window === "undefined") return 0;
+
   const remInPixels = parseFloat(
-    getComputedStyle(document.documentElement).fontSize,
+    window.getComputedStyle(document.documentElement).fontSize,
   );
 
   return parseInt(defaultTheme.screens[breakpoint]) * remInPixels;
