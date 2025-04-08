@@ -21,14 +21,7 @@ export default function CartItem({ id, slug }: CartItemProps) {
     isSuccess,
   } = useGetSuspendedProduct({ id, slug });
 
-  const increaseQuantity = useCartStore((state) => state.addToCart);
-  const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
-  const removeFromCart = useCartStore((state) => state.removeFromCart);
-
-  const quantity = useGetCartItemQuantity(id, slug) ?? 0;
-  const totalPrice = (product.price * quantity).toFixed(2);
-
-  if (isError) {
+  if (!product || isError) {
     return (
       <Alert>
         <AlertCircleIcon />
@@ -37,9 +30,16 @@ export default function CartItem({ id, slug }: CartItemProps) {
     );
   }
 
+  const increaseQuantity = useCartStore((state) => state.addToCart);
+  const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
+
+  const quantity = useGetCartItemQuantity(id, slug) ?? 0;
+  const totalPrice = (product.price * quantity).toFixed(2);
+
   if (isSuccess) {
     return (
-      <div className="bg-accent flex flex-col max-md:items-center gap-5 rounded-md border p-5 shadow md:flex-row">
+      <div className="bg-accent flex flex-col gap-5 rounded-md border p-5 shadow max-md:items-center md:flex-row">
         <ImageWithErrorFallback
           src={product.images[0]}
           alt={product.title}

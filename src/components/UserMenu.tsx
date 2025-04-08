@@ -12,6 +12,8 @@ import ImageWithErrorFallback from "./ImageWithErrorFallback";
 import { Skeleton } from "./ui/skeleton";
 import Link from "next/link";
 import { useUserTokenStore } from "@/store/auth/useUserTokenStore";
+import UpdateUserDialogButton from "@/app/profile/UpdateUserDialogButton";
+import { Button } from "./ui/button";
 
 export default function UserMenu() {
   const user = useUserStore((state) => state.user);
@@ -25,14 +27,16 @@ export default function UserMenu() {
   const logout = () => {
     clearTokens();
     clearUser();
+    setOpen(false);
   };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger className="relative aspect-square size-9 rounded-full border p-0 shadow">
+      <PopoverTrigger className="relative aspect-square size-8 rounded-full border p-0 shadow">
         {user ? (
           <>
             <ImageWithErrorFallback
+              key={user.avatar}
               src={user.avatar}
               alt={user.name}
               size={48}
@@ -53,24 +57,24 @@ export default function UserMenu() {
         )}
       </PopoverTrigger>
       {user && (
-        <PopoverContent align="end" className="flex w-56 flex-col gap-1 p-1">
+        <PopoverContent align="end" className="flex w-56 flex-col gap-0.5 p-1">
           <p className="px-2 py-1 text-center capitalize">{user.name}</p>
           <hr />
-          <Link
-            href="/profile"
-            className="hover:bg-primary/10 flex items-center gap-1 rounded px-2 py-1 transition-colors duration-200"
-          >
-            <User2Icon className="size-4" />
-            Profile
-          </Link>
+          <Button variant="ghost" asChild className="justify-start">
+            <Link onClick={() => setOpen(false)} href="/profile">
+              <User2Icon className="size-4" />
+              Profile
+            </Link>
+          </Button>
+          <UpdateUserDialogButton
+            className="justify-start [&_svg]:order-[-1]"
+            variant="ghost"
+          />
           <hr />
-          <button
-            onClick={logout}
-            className="hover:bg-primary/10 flex items-center gap-1 rounded px-2 py-1 transition-colors duration-200"
-          >
+          <Button variant="ghost" className="justify-start" onClick={logout}>
             <LogOutIcon className="size-4" />
             Logout
-          </button>
+          </Button>
         </PopoverContent>
       )}
     </Popover>

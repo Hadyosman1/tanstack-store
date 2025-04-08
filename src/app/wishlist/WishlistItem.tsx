@@ -21,11 +21,7 @@ export default function CartItem({ id, slug }: WishlistItemProps) {
     isSuccess,
   } = useGetSuspendedProduct({ id, slug });
 
-  const removeFromWishlist = useWishlistStore(
-    (state) => state.removeFromWishlist,
-  );
-
-  if (isError) {
+  if (!product || isError) {
     return (
       <Alert>
         <AlertCircleIcon />
@@ -33,6 +29,10 @@ export default function CartItem({ id, slug }: WishlistItemProps) {
       </Alert>
     );
   }
+
+  const removeFromWishlist = useWishlistStore(
+    (state) => state.removeFromWishlist,
+  );
 
   if (isSuccess) {
     return (

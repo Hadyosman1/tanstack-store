@@ -27,3 +27,23 @@ export const loginSchema = z.object({
 });
 
 export type LoginValues = z.infer<typeof loginSchema>;
+
+export const updateUserSchema = z.object({
+  name: z
+  .string()
+    .min(2, "Name must be at least 2 characters long")
+    .max(50, "Name must be at most 50 characters long")
+    .optional(),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Must be a valid email")
+    .optional(),
+  avatar: z
+    .string()
+    .min(1, "Avatar is required")
+    .url("Something went wrong try to change avatar")
+    .optional(),
+});
+
+export type UpdateUserValues = z.infer<typeof updateUserSchema>;

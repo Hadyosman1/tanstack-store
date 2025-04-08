@@ -11,7 +11,7 @@ export default function useGetSuspendedProduct({
 }) {
   return useSuspenseQuery({
     queryKey: ["product", `${id}-${slug}`],
-    queryFn: async () => services.getProductBySlug(slug),
+    queryFn: async () => services.getProductBySlug(slug).catch(() => null),
     staleTime: 1000 * 60 * 5,
   });
 }

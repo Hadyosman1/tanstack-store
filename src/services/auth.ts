@@ -1,5 +1,9 @@
 import { API_BASE_URL } from "@/constants";
-import { LoginValues, SignUpValues } from "@/lib/validations/auth";
+import {
+  LoginValues,
+  SignUpValues,
+  UpdateUserValues,
+} from "@/lib/validations/auth";
 import { User, UserTokens } from "@/types/users";
 
 const services = {
@@ -65,6 +69,19 @@ const services = {
 
     if (!res.ok) {
       throw new Error(`Failed to get user profile, status: ${res.status}`);
+    }
+
+    return res.json() as Promise<User>;
+  },
+  updateUserById: async (id: number, updateUserValues: UpdateUserValues) => {
+    const res = await fetch(`${API_BASE_URL}/users/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updateUserValues),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to update user, status: ${res.status}`);
     }
 
     return res.json() as Promise<User>;

@@ -1,8 +1,7 @@
 import { signUpSchema, SignUpValues } from "@/lib/validations/auth";
 import authServices from "@/services/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircleIcon, Loader, XIcon } from "lucide-react";
-import Image from "next/image";
+import { AlertCircleIcon, Loader } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -19,6 +18,7 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import PasswordInput from "../ui/password-input";
+import AvatarPreview from "./AvatarPreview";
 import { useUploadAvatar } from "./hooks";
 
 interface SignUpFormProps {
@@ -232,51 +232,4 @@ export default function SignUpForm({
   );
 }
 
-interface AvatarPreviewProps {
-  avatarImgFile: File | null;
-  isUploading: boolean;
-  uploadImgSrc: string;
-  clearAvatar: () => void;
-}
 
-const AvatarPreview = ({
-  avatarImgFile,
-  uploadImgSrc,
-  isUploading,
-  clearAvatar,
-}: AvatarPreviewProps) => {
-  if (!avatarImgFile) return null;
-
-  return (
-    <div className="relative mx-auto mt-3 w-fit shadow">
-      <div className="relative overflow-hidden rounded-md">
-        <Image
-          src={
-            isUploading || !uploadImgSrc
-              ? URL.createObjectURL(avatarImgFile)
-              : uploadImgSrc
-          }
-          alt="Avatar"
-          width={200}
-          height={200}
-        />
-        {isUploading && (
-          <div className="bg-foreground/50 text-accent direction-alternate ease absolute inset-0 grid animate-pulse place-content-center duration-700">
-            <Loader size={32} className="animate-spin" />
-          </div>
-        )}
-      </div>
-      {!isUploading && (
-        <Button
-          type="button"
-          onClick={clearAvatar}
-          size="icon"
-          className="absolute -top-2 -right-2 size-6 rounded-full"
-        >
-          <XIcon size={20} />
-          <div className="sr-only">Remove avatar</div>
-        </Button>
-      )}
-    </div>
-  );
-};

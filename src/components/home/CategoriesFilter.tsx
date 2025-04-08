@@ -57,8 +57,8 @@ const CategoriesFilter = ({
   };
 
   return (
-    <div className="overflow-y-auto">
-      <div className="max-h-[max(40dvh,200px)] space-y-3">
+    <div className="">
+      <div className="space-y-3">
         <div className="flex items-center justify-between pb-2">
           <h3 className="text-lg font-semibold">Categories</h3>
 
@@ -91,7 +91,7 @@ const CategoriesFilter = ({
         )}
 
         {!!categories?.length ? (
-          <form className="space-y-3 pb-4">
+          <form className="max-h-[max(40dvh,200px)] space-y-3 overflow-y-auto pb-4">
             {categories?.map((category) => (
               <Label key={category.id} className="w-fit cursor-pointer">
                 <input
