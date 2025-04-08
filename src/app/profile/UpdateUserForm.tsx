@@ -52,7 +52,7 @@ export default function UpdateUserForm({
   useEffect(() => {
     form.clearErrors("avatar");
     form.setValue("avatar", avatarData ? avatarData.location : user?.avatar);
-  }, [avatarData, form]);
+  }, [avatarData, form, user?.avatar]);
 
   if (!user) return null;
 

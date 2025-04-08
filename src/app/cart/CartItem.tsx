@@ -21,6 +21,12 @@ export default function CartItem({ id, slug }: CartItemProps) {
     isSuccess,
   } = useGetSuspendedProduct({ id, slug });
 
+  const increaseQuantity = useCartStore((state) => state.addToCart);
+  const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
+
+  const quantity = useGetCartItemQuantity(id, slug) ?? 0;
+
   if (!product || isError) {
     return (
       <Alert>
@@ -30,11 +36,6 @@ export default function CartItem({ id, slug }: CartItemProps) {
     );
   }
 
-  const increaseQuantity = useCartStore((state) => state.addToCart);
-  const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
-  const removeFromCart = useCartStore((state) => state.removeFromCart);
-
-  const quantity = useGetCartItemQuantity(id, slug) ?? 0;
   const totalPrice = (product.price * quantity).toFixed(2);
 
   if (isSuccess) {
