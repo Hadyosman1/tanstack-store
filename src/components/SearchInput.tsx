@@ -8,7 +8,7 @@ import { useId } from "react";
 import InfiniteScrollingTriggerBoundary from "./InfiniteScrollingTriggerBoundary";
 import ProductResultCard from "./products/ProductResultCard";
 
-export default function SearchInput() {
+export default function SearchInput({ className }: { className?: string }) {
   const {
     value,
     setValue,
@@ -39,7 +39,10 @@ export default function SearchInput() {
         setIsResultsVisible(false);
         setIsFormHasFocus(false);
       }}
-      className="relative max-w-64 grow transition-all duration-300 has-[input:active,input:focus]:max-w-80"
+      className={cn(
+        "relative grow transition-all duration-300 md:max-w-64 has-[input:active,input:focus]:md:max-w-80",
+        className,
+      )}
       onSubmit={(e) => e.preventDefault()}
     >
       <Input

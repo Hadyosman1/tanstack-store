@@ -1,7 +1,7 @@
 "use client";
 import { cn, getTwBreakpoint } from "@/lib/utils";
 import { FilterIcon, XIcon } from "lucide-react";
-import { Suspense, useCallback, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";
 import CategoriesFilter from "./CategoriesFilter";
 import PriceRangeFilter from "./PriceRangeFilter";
@@ -13,18 +13,25 @@ interface FiltersBarProps {
 export default function FiltersBar({ className }: FiltersBarProps) {
   const [isFiltersOpen, setIsFiltersOpen] = useState(true);
 
-  const closeFiltersBarWhenApplyFilterOnMobile = useCallback(() => {
-    const mdBreakpoint = getTwBreakpoint("md");
-
+  const mdBreakpoint = useMemo(() => getTwBreakpoint("md"), []);
+  const closeFiltersBar = useCallback(() => {
     if (window.innerWidth < mdBreakpoint) {
       setIsFiltersOpen(false);
     }
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("resize", closeFiltersBar);
+
+    return () => {
+      window.removeEventListener("resize", closeFiltersBar);
+    };
+  }, []);
+
   return (
     <aside
       className={cn(
-        "bg-card sticky top-[calc(var(--header-height)+(var(--spacing)_*_3))] z-10 w-full shrink-0 self-start rounded-lg border p-2 shadow-md max-md:px-4 md:w-72 md:p-4",
+        "bg-card sticky top-[calc(var(--header-height)+(var(--spacing)_*_2))] z-10 w-full shrink-0 self-start rounded-lg border p-2 shadow-md max-md:px-4 md:w-72 md:p-4",
         className,
       )}
     >
@@ -57,16 +64,12 @@ export default function FiltersBar({ className }: FiltersBarProps) {
       >
         <Suspense>
           <CategoriesFilter
-            closeFiltersBarWhenApplyFilterOnMobile={
-              closeFiltersBarWhenApplyFilterOnMobile
-            }
+            closeFiltersBarWhenApplyFilterOnMobile={closeFiltersBar}
           />
         </Suspense>
         <Suspense>
           <PriceRangeFilter
-            closeFiltersBarWhenApplyFilterOnMobile={
-              closeFiltersBarWhenApplyFilterOnMobile
-            }
+            closeFiltersBarWhenApplyFilterOnMobile={closeFiltersBar}
           />
         </Suspense>
       </div>

@@ -15,11 +15,12 @@ export default function UserProfilePage() {
       <h2 className="border-b pb-2 text-2xl font-bold">Your Profile</h2>
       <div className="mx-auto flex max-w-sm flex-col items-center gap-5 rounded-lg border p-5 shadow-md">
         <UpdateUserDialogButton size="sm" className="self-end text-sm" />
-        <div className="overflow-hidden rounded-full shadow-md">
+        <div className="aspect-square overflow-hidden rounded-full shadow-md">
           <ImageWithErrorFallback
             src={user.avatar}
             alt={user.name}
             size={200}
+            className="aspect-square object-cover"
           />
         </div>
         <div className="space-y-3 text-center">
