@@ -1,7 +1,7 @@
 "use client";
 import { cn, getTwBreakpoint } from "@/lib/utils";
 import { FilterIcon, XIcon } from "lucide-react";
-import { useCallback, useState } from "react";
+import { Suspense, useCallback, useState } from "react";
 import { Button } from "../ui/button";
 import CategoriesFilter from "./CategoriesFilter";
 import PriceRangeFilter from "./PriceRangeFilter";
@@ -55,16 +55,20 @@ export default function FiltersBar({ className }: FiltersBarProps) {
           },
         )}
       >
-        <CategoriesFilter
-          closeFiltersBarWhenApplyFilterOnMobile={
-            closeFiltersBarWhenApplyFilterOnMobile
-          }
-        />
-        <PriceRangeFilter
-          closeFiltersBarWhenApplyFilterOnMobile={
-            closeFiltersBarWhenApplyFilterOnMobile
-          }
-        />
+        <Suspense>
+          <CategoriesFilter
+            closeFiltersBarWhenApplyFilterOnMobile={
+              closeFiltersBarWhenApplyFilterOnMobile
+            }
+          />
+        </Suspense>
+        <Suspense>
+          <PriceRangeFilter
+            closeFiltersBarWhenApplyFilterOnMobile={
+              closeFiltersBarWhenApplyFilterOnMobile
+            }
+          />
+        </Suspense>
       </div>
     </aside>
   );

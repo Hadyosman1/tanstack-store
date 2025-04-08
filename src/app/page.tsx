@@ -2,6 +2,7 @@ import Categories from "@/components/categories/Categories";
 import Banner from "@/components/home/Banner";
 import FiltersBar from "@/components/home/FiltersBar";
 import Products from "@/components/home/Products";
+import { Suspense } from "react";
 
 export default function HomePage() {
   return (
@@ -11,7 +12,9 @@ export default function HomePage() {
         <Categories />
         <div className="flex gap-4 max-md:flex-col">
           <FiltersBar />
-          <Products />
+          <Suspense>
+            <Products />
+          </Suspense>
         </div>
       </main>
     </div>
