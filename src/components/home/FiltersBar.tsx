@@ -21,8 +21,9 @@ export default function FiltersBar({ className }: FiltersBarProps) {
   }, [mdBreakpoint]);
 
   useEffect(() => {
+    closeFiltersBar();
     window.addEventListener("resize", closeFiltersBar);
-
+    
     return () => {
       window.removeEventListener("resize", closeFiltersBar);
     };

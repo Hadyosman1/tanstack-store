@@ -1,14 +1,11 @@
 "use client";
 
 import { cn, openAuthDialogIfNotLoggedIn } from "@/lib/utils";
-import { ShoppingCartIcon } from "lucide-react";
-import { Button, buttonVariants } from "../ui/button";
-import {
-  useCartStore,
-  useGetCartItemQuantity,
-} from "@/store/useCartStore";
+import { useCartStore, useGetCartItemQuantity } from "@/store/useCartStore";
 import { Product } from "@/types/products";
 import { VariantProps } from "class-variance-authority";
+import { ShoppingCartIcon } from "lucide-react";
+import { Button, buttonVariants } from "../ui/button";
 
 interface AddToCartButtonProps extends VariantProps<typeof buttonVariants> {
   product: Product;

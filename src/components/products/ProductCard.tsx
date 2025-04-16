@@ -71,10 +71,14 @@ export default function ProductCard({ product, productIdx }: ProductProps) {
           <div className="flex items-center gap-1">
             <AddToCartButton
               product={product}
-              className="grow text-xs"
+              className="shrink-2 grow px-3 text-xs"
               size="sm"
             />
-            <AddToWishlistButton product={product} size="icon" />
+            <AddToWishlistButton
+              className="shrink-0"
+              product={product}
+              size="icon"
+            />
           </div>
         </CardContent>
       </Card>
